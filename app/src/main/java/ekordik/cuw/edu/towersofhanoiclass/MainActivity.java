@@ -15,9 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewGroup layoutTower0; //vertical linear layout
     private ViewGroup layoutTower1; //vertical linear layout
     private ViewGroup layoutTower2; //vertical linear layout
-    private Tower tower0;
-    private Tower tower1;
-    private Tower tower2;
+    private Tower[] towers;
     private Disk stagedDisk;
     private AlertDialog winningDialog;
 
@@ -30,13 +28,8 @@ public class MainActivity extends AppCompatActivity {
         this.layoutTower0 = (ViewGroup)this.findViewById(R.id.lltower0);
         this.layoutTower1 = (ViewGroup)this.findViewById(R.id.lltower1);
         this.layoutTower2 = (ViewGroup)this.findViewById(R.id.lltower2);
-        //Set up towers
-        this.tower0 = new Tower();
-        this.tower1 = new Tower();
-        this.tower2 = new Tower();
-        this.tower0.push(new Disk(3, (View)this.findViewById(R.id.txt2)));
-        this.tower0.push(new Disk(2, (View)this.findViewById(R.id.txt1)));
-        this.tower0.push(new Disk(1, (View)this.findViewById(R.id.txt0)));
+        towers = new Tower[3];
+        this.intializeTowers();
 
         //Initialize AlertDialog for winning message
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -58,27 +51,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tower0ButtonPressed(View view) {
-        this.move(tower0, layoutTower0);
+        this.move(0, layoutTower0);
     }
 
     public void tower1ButtonPressed(View view) {
-        this.move(tower1, layoutTower1);
+        this.move(1, layoutTower1);
     }
 
     public void tower2ButtonPressed(View view) {
-        this.move(tower2, layoutTower2);
+        this.move(2, layoutTower2);
     }
 
-    private void move(Tower tower, ViewGroup layout) {
+    private void move(int towerInx, ViewGroup layout) {
         if(this.stagedDisk == null) {
-            if(layout.getChildCount() > 0 && tower.getCount() > 0) {
-                this.stagedDisk = tower.pop();
+            if(layout.getChildCount() > 0 && towers[towerInx].getCount() > 0) {
+                this.stagedDisk = towers[towerInx].pop();
                 View temp = layout.getChildAt(0);
                 layout.removeViewAt(0);
                 stagingArea.addView(temp);
             }
         } else {
-            if(tower.push(stagedDisk)) {
+            if(towers[towerInx].push(stagedDisk)) {
                 View temp = this.stagingArea.getChildAt(0);
                 this.stagingArea.removeViewAt(0);
                 layout.addView(temp, 0);
@@ -93,20 +86,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean checkForWin() {
-        if(this.tower2.getCount() == 3) {
+        if(this.towers[2].getCount() == 3) {
             return true;
         }
         return false;
     }
 
     private void intializeGame() {
-        //Set up towers
-        this.tower0 = new Tower();
-        this.tower1 = new Tower();
-        this.tower2 = new Tower();
-        this.tower0.push(new Disk(3, (View)this.findViewById(R.id.txt2)));
-        this.tower0.push(new Disk(2, (View)this.findViewById(R.id.txt1)));
-        this.tower0.push(new Disk(1, (View)this.findViewById(R.id.txt0)));
+        this.intializeTowers();
         View temp = this.findViewById(R.id.txt0);
         this.layoutTower2.removeView(temp);
         this.layoutTower0.addView(temp);
@@ -116,5 +103,14 @@ public class MainActivity extends AppCompatActivity {
         temp = this.findViewById(R.id.txt2);
         this.layoutTower2.removeView(temp);
         this.layoutTower0.addView(temp);
+    }
+
+    private void intializeTowers() {
+        for(int i = 0; i < towers.length; i++) {
+            this.towers[i] = new Tower();
+        }
+        this.towers[0].push(new Disk(3, (View)this.findViewById(R.id.txt2)));
+        this.towers[0].push(new Disk(2, (View)this.findViewById(R.id.txt1)));
+        this.towers[0].push(new Disk(1, (View)this.findViewById(R.id.txt0)));
     }
 }
