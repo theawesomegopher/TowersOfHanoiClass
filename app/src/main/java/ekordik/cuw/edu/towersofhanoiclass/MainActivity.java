@@ -70,11 +70,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void move(Tower tower, ViewGroup layout) {
-        if(this.stagedDisk == null && layout.getChildCount() > 0 && tower.getCount() > 0) {
+        if(this.stagedDisk == null) {
+            if(layout.getChildCount() > 0 && tower.getCount() > 0) {
                 this.stagedDisk = tower.pop();
                 View temp = layout.getChildAt(0);
                 layout.removeViewAt(0);
                 stagingArea.addView(temp);
+            }
         } else {
             if(tower.push(stagedDisk)) {
                 View temp = this.stagingArea.getChildAt(0);
