@@ -76,6 +76,20 @@
                     android:gravity="center"
                     android:background="@drawable/disk0" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txt1"
+                    android:gravity="center"
+                    android:background="@drawable/disk1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txt2"
+                    android:gravity="center"
+                    android:background="@drawable/disk2" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -86,13 +100,6 @@
                 android:id="@+id/lltower1"
                 android:gravity="center_horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/txt1"
-                    android:gravity="center"
-                    android:background="@drawable/disk1" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -102,13 +109,6 @@
                 android:layout_weight="33.33"
                 android:id="@+id/lltower2"
                 android:gravity="center_horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/txt2"
-                    android:gravity="center"
-                    android:background="@drawable/disk2" />
 
             </LinearLayout>
         </LinearLayout>

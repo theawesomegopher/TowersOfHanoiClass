@@ -11,8 +11,9 @@ public class Disk {
     private Disk nextDisc;
     private View view;
 
-    public Disk(int size) {
+    public Disk(int size, View view) {
         this.size = size;
+        this.view = view;
         this.nextDisc = null;
     }
 
